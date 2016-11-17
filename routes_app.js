@@ -93,6 +93,9 @@ router.route("/posts")
 
             res.redirect("/app/posts/new");
             console.log("falta un campo")
+            console.log(req.fields.title)
+            console.log(req.fields.description)
+            console.log(req.fields.category)
         }
 
     });
