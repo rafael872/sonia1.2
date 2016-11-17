@@ -70,12 +70,10 @@ router.route("/posts")
                 category: req.fields.category,
                 foto1: extension
             };
-            console.log(req.fields.description)
             var post = new Post(data);
             post.save(function (err) {
-                var postId = post._id
                 if (!err) {
-                    mv(req.files.archivo.path, "public/images/" + post.id + "_1." +extension,function(err){
+                    mv(req.files.archivo.path, "public/images/" + post._id + "_1." +extension,function(err){
                         if(err){
                             throw err;
                         }
