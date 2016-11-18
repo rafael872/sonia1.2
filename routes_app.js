@@ -69,44 +69,31 @@ router.route("/posts")
         };
         var post = new Post(data);
 
-
-
-
-        post.save().then(function(us){
-
-        })
-        post.save(function (err) {
-            if (!err) {
-                mv(req.files.archivo.path, "public/images/" + post._id + "_1." + extension, function (err) {
-                    if (err) {
-                        throw err;
-                    }
-
-
-                    console.log("Fichero copiado correctamente...");
-
-                });
+        post.save().then(function (us) {
+            mv(req.files.archivo.path, "public/images/" + post._id + "_1." + extension, function (err) {
+                if (err) {
+                    throw err;
+                }
+                console.log("Fichero copiado correctamente...");
                 res.redirect("/app/posts/" + post._id)
-            } else {
-                console.log(err)
-                res.redirect("/app/posts/new");
+            }), function (err) {
+                res.redirect("/app/posts/new", {err: err});
                 console.log("falta un campo")
                 console.log(req.fields.title)
                 console.log(req.fields.description)
                 console.log(req.fields.category)
             }
-        })
 
-        /* user.save().then(function (us) {
-         res.send("Guardamos exitosamente")
+            /* user.save().then(function (us) {
+             res.send("Guardamos exitosamente")
 
-         }), function (err) {
-         console.log(String(err));
+             }), function (err) {
+             console.log(String(err));
 
-         }*/
+             }*/
+
+        });
+    })
 
 
-    });
-
-
-module.exports = router;
+        module.exports = router;
