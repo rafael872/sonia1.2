@@ -76,7 +76,8 @@ router.route("/posts")
                 }
                 console.log("Fichero copiado correctamente...");
                 res.redirect("/app/posts/" + post._id)
-            }), function (err) {
+            }),
+                function (err) {
                 res.redirect("/app/posts/new", {err: err});
                 console.log("falta un campo")
                 console.log(req.fields.title)
