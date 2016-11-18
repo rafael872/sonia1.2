@@ -60,41 +60,47 @@ router.route("/posts")
         }).sort({date: "desc"})
     })
     .post(function (req, res) {
-        console.log(req.fields.title)
-
-            console.log(req.files.archivo);
-            var extension = req.files.archivo.name.split(".").pop();
-            var data = {
-                title: req.fields.title,
-                description: req.fields.description,
-                category: req.fields.category,
-                foto1: extension
-            };
-            var post = new Post(data);
-            post.save(function (err) {
-                if (!err) {
-                    mv(req.files.archivo.path, "public/images/" + post._id + "_1." +extension,function(err){
-                        if(err){
-                            throw err;
-                        }
+        var extension = req.files.archivo.name.split(".").pop();
+        var data = {
+            title: req.fields.title,
+            description: req.fields.description,
+            category: req.fields.category,
+            foto1: extension
+        };
+        var post = new Post(data);
 
 
-                        console.log("Fichero copiado correctamente...");
 
-                    });
-                    res.redirect("/app/posts/" + post._id)
-                } else {
-                    console.log(err)
-                    res.redirect("/app/posts/new");
-                    console.log("falta un campo")
-                    console.log(req.fields.title)
-                    console.log(req.fields.description)
-                    console.log(req.fields.category)
+
+        post.save().then(function(us){
+            post.removeAllListeners('exit');
+            mv(req.files.archivo.path, "public/images/" + post._id + "_1." + extension, function (err) {
+                if (err) {
+                    throw err;
                 }
-            })
 
 
+                console.log("Fichero copiado correctamente...");
 
+            });
+            res.redirect("/app/posts/" + post._id)
+        }), function (err) {
+            console.log(String(err))
+            res.redirect("/app/posts/new");
+            console.log("falta un campo")
+            console.log(req.fields.title)
+            console.log(req.fields.description)
+            console.log(req.fields.category)
+        }
+
+
+        /* user.save().then(function (us) {
+         res.send("Guardamos exitosamente")
+
+         }), function (err) {
+         console.log(String(err));
+
+         }*/
 
 
     });

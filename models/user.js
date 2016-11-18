@@ -1,12 +1,6 @@
 var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
-var config = {
-    "USER"    : "root",
-    "PASS"    : "rafael872",
-    "HOST"    : "ds155737.mlab.com:55737/blog",
-    "PORT"    : "27017",
-    "DATABASE" : "blog2"
-};
+
 var dbPath  = "mongodb://rafael872:rafael872@ds155737.mlab.com:55737/blog2"
 mongoose.connect(dbPath);
 
