@@ -60,6 +60,10 @@ router.route("/posts")
         }).sort({date: "desc"})
     })
     .post(function (req, res) {
+        var desc = req.fields.description
+        var nam = req.files.archivo.name
+        console.log(desc)
+        console.log(nam)
         var extension = req.files.archivo.name.split(".").pop();
         var data = {
             title: req.fields.title,
@@ -75,7 +79,7 @@ router.route("/posts")
                     throw err;
                 }
                 console.log("Fichero copiado correctamente...");
-                res.redirect("/app/posts/" + post._id)
+                res.redirect("/app/posts/"+ post._id)
             }),
                 function (err) {
                 res.redirect("/app/posts/new", {err: err});
