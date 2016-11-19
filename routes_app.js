@@ -74,13 +74,13 @@ router.route("/posts")
             }
         );
         post.save(function (err, post) {
-            if (err) res.redirect("/app/posts/new", {err: "problema al guardar"});
+            if (err) res.redirect("/app/posts/new");
             mv(req.files.archivo.path, "public/images/" + post._id + "_1." + extension, function (err) {
                 if (err) throw err;
                 console.log("Fichero copiado correctamente...");
                 res.redirect("/app/posts/" + post._id)
             }), function (err){
-                res.redirect("/app/posts/new", {err: "no se pudo mover el archivo"});
+                res.redirect("/app/posts/new");
             }
 
         })
