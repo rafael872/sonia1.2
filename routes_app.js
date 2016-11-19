@@ -65,40 +65,52 @@ router.route("/posts")
         console.log(desc)
         console.log(nam)
         var extension = req.files.archivo.name.split(".").pop();
-        var data = {
-            title: req.fields.title,
-            description: req.fields.description,
-            category: req.fields.category,
-            foto1: extension
-        };
-        var post = new Post(data);
 
-        post.save().then(function (us) {
+        var post = new Post({
+                title: req.fields.title,
+                description: req.fields.description,
+                category: req.fields.category,
+                foto1: extension
+            }
+        );
+        post.save(function (err, post) {
+            if (err) res.redirect("/app/posts/new", {err: "problema al guardar"});
             mv(req.files.archivo.path, "public/images/" + post._id + "_1." + extension, function (err) {
-                if (err) {
-                    throw err;
-                }
+                if (err) throw err;
                 console.log("Fichero copiado correctamente...");
-                res.redirect("/app/posts/"+ post._id)
-            }),
-                function (err) {
-                res.redirect("/app/posts/new", {err: err});
-                console.log("falta un campo")
-                console.log(req.fields.title)
-                console.log(req.fields.description)
-                console.log(req.fields.category)
+                res.redirect("/app/posts/" + post._id)
+            }), function (err){
+                res.redirect("/app/posts/new", {err: "no se pudo mover el archivo"});
             }
 
-            /* user.save().then(function (us) {
-             res.send("Guardamos exitosamente")
+        })
+        //post.save().then(function (us) {
+        //    mv(req.files.archivo.path, "public/images/" + post._id + "_1." + extension, function (err) {
+        //        if (err) {
+        //            throw err;
+        //            return
+        //        }
+        //       console.log("Fichero copiado correctamente...");
+        //       res.redirect("/app/posts/" + post._id)
+        //   }),
+        //       function (err) {
+        //           res.redirect("/app/posts/new", {err: err});
+        //           console.log("falta un campo")
+        //           console.log(req.fields.title)
+        //           console.log(req.fields.description)
+        //            console.log(req.fields.category)
+        //        }
 
-             }), function (err) {
-             console.log(String(err));
+        /* user.save().then(function (us) {
+         res.send("Guardamos exitosamente")
 
-             }*/
+         }), function (err) {
+         console.log(String(err));
 
-        });
+         }*/
+
+        // });
     })
 
 
-        module.exports = router;
+module.exports = router;
