@@ -67,7 +67,7 @@ router.route("/posts")
             title: req.body.title,
             description: req.body.description,
             category: req.body.category,
-            extension: ext
+            foto1: ext
         })
 
         post.save(function (err, post) {
