@@ -5,6 +5,7 @@ var app = express();
 var cookieSession = require("cookie-session");
 var routes_app = require("./routes_app");
 var session_middleware = require("./middlewares/session");
+var multipart = require('connect-multiparty');
 
 var Post = require("./models/post");
 
@@ -20,7 +21,7 @@ app.use(express.static('assets'));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
-
+app.use(multipart())
 app.use(methodOverride("_method"));
 
 

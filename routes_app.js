@@ -5,7 +5,6 @@ var post_finder_middleware = require("./middlewares/find_post");
 require('events').EventEmitter.defaultMaxListeners = Infinity;
 
 
-
 router.get("/", function (req, res) {
 
     res.redirect("/app/posts")
@@ -61,14 +60,44 @@ router.route("/posts")
         }).sort({date: "desc"})
     })
     .post(function (req, res) {
+        var fs = require('fs');
+        var ext = req.files.archivo.name.split(".").pop();
+
         var post = new Post({
-            title:req.body.title,
-            description:req.body.description,
-            category:req.body.category
+            title: req.body.title,
+            description: req.body.description,
+            category: req.body.category,
+            extension: ext
         })
-        console.log(req.body.title)
-        console.log(req.body.category)
-        console.log(req.body.description)
+
+        post.save(function (err, post) {
+            var path = req.files.archivo.path
+            if (err) {
+                res.redirect("/app/post/new")
+                console.log("error al guardar")
+            }
+            else {
+
+                var newPath = 'public/images/' + post._id +'_1' +'.' + ext
+                var is = fs.createReadStream(path)
+                var os = fs.createWriteStream(newPath)
+            }
+
+            console.log(req.body.title)
+            console.log(req.body.category)
+            console.log(req.body.description)
+            console.log(path)
+            console.log(newPath)
+            is.pipe(os)
+
+            is.on('end', function () {
+                //eliminamos el archivo temporal
+                fs.unlinkSync(path)
+            })
+
+        })
+
+
 
 
     })

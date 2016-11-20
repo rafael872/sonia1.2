@@ -20,7 +20,7 @@ block contenido
 
 
     include ../nav
-    form(action="/app/posts" method="POST" name="subir" id="subir")
+    form(action="/app/posts" method="POST" name="subir" id="subir" enctype='multipart/form-data')
     div(class="margen_principal")
 
         include ../nav_backend.pug
