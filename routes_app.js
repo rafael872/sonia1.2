@@ -3,7 +3,8 @@ var Post = require("./models/post");
 var router = express.Router();
 var post_finder_middleware = require("./middlewares/find_post");
 require('events').EventEmitter.defaultMaxListeners = Infinity;
-var mv = require("mv");
+
+
 
 router.get("/", function (req, res) {
 
@@ -26,9 +27,9 @@ router.route("/posts/:id")
         res.render("app/posts/show");
     })
     .put(function (req, res) {
-        res.locals.post.title = req.fields.title;
-        res.locals.post.description = req.fields.description;
-        res.locals.post.category = req.fields.category;
+        res.locals.post.title = req.body.title;
+        res.locals.post.description = req.body.description;
+        res.locals.post.category = req.body.category;
         res.locals.post.save(function (err) {
             if (!err) {
                 res.render("app/posts/show");
@@ -60,56 +61,16 @@ router.route("/posts")
         }).sort({date: "desc"})
     })
     .post(function (req, res) {
-        var desc = req.fields.description
-        var nam = req.files.archivo.name
-        console.log(desc)
-        console.log(nam)
-        var extension = req.files.archivo.name.split(".").pop();
-
         var post = new Post({
-                title: req.fields.title,
-                description: req.fields.description,
-                category: req.fields.category,
-                foto1: extension
-            }
-        );
-        post.save(function (err, post) {
-            if (err) res.redirect("/app/posts/new");
-            mv(req.files.archivo.path, "public/images/" + post._id + "_1." + extension, function (err) {
-                if (err) throw err;
-                console.log("Fichero copiado correctamente...");
-                res.redirect("/app/posts/" + post._id)
-            }), function (err){
-                res.redirect("/app/posts/new");
-            }
-
+            title:req.body.title,
+            description:req.body.description,
+            category:req.body.category
         })
-        //post.save().then(function (us) {
-        //    mv(req.files.archivo.path, "public/images/" + post._id + "_1." + extension, function (err) {
-        //        if (err) {
-        //            throw err;
-        //            return
-        //        }
-        //       console.log("Fichero copiado correctamente...");
-        //       res.redirect("/app/posts/" + post._id)
-        //   }),
-        //       function (err) {
-        //           res.redirect("/app/posts/new", {err: err});
-        //           console.log("falta un campo")
-        //           console.log(req.fields.title)
-        //           console.log(req.fields.description)
-        //            console.log(req.fields.category)
-        //        }
+        console.log(req.body.title)
+        console.log(req.body.category)
+        console.log(req.body.description)
 
-        /* user.save().then(function (us) {
-         res.send("Guardamos exitosamente")
 
-         }), function (err) {
-         console.log(String(err));
-
-         }*/
-
-        // });
     })
 
 

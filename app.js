@@ -1,12 +1,11 @@
 var express = require("express");
-//var bodyParser = require("body-parser");
+var bodyParser = require("body-parser");
 var User = require("./models/user").User;
 var app = express();
 var cookieSession = require("cookie-session");
 var routes_app = require("./routes_app");
 var session_middleware = require("./middlewares/session");
-var formidable = require('express-formidable');
-var mv = require("mv");
+
 var Post = require("./models/post");
 
 
@@ -19,8 +18,8 @@ app.use(express.static('assets'));
 
 
 
-//app.use(bodyParser.json());
-//app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
 
 app.use(methodOverride("_method"));
 
@@ -29,7 +28,7 @@ app.use(cookieSession({
     name:"session",
     keys:["llave-1","llave-2"]
 }));
-app.use(formidable({keepExtensions: true}));
+//app.use(formidable({keepExtensions: true}));
 
 app.set("view engine", "pug");
 
@@ -111,15 +110,15 @@ app.get("/posts/:id",function (req,res) {
 })
 app.post("/users", function (req, res) {
     var user = new User({
-        email: req.fields.email,
-        password: req.fields.password,
-        password_confirmation: req.fields.confirma_password,
-        username: req.fields.username
+        email: req.body.email,
+        password: req.body.password,
+        password_confirmation: req.body.confirma_password,
+        username: req.body.username
     });
-    console.log("Email: " + req.fields.email);
-    console.log("Contraseña: " + req.fields.password);
-    console.log("Confirmacion: " + req.fields.confirma_password);
-    console.log("username: " + req.fields.username);
+    console.log("Email: " + req.body.email);
+    console.log("Contraseña: " + req.body.password);
+    console.log("Confirmacion: " + req.body.confirma_password);
+    console.log("username: " + req.body.username);
 
     //metodo con promise
     user.save().then(function (us) {
@@ -146,7 +145,7 @@ app.post("/users", function (req, res) {
 });
 
 app.post("/sessions", function (req, res) {
-    User.findOne({email: req.fields.email, password: req.fields.password}, function (err, user) {
+    User.findOne({email: req.body.email, password: req.body.password}, function (err, user) {
         req.session.user_id = user._id;
         if (req.session.user_id) {
             res.redirect("/app")
