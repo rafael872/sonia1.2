@@ -11,8 +11,8 @@ var post_schema = new Schema({
     foto3:{type:String},
     foto4:{type:String},
     foto5:{type:String},
-    foto5:{type:String},
-    foto7:{type:String}
+    foto6:{type:String}
+
 
 });
 

@@ -25,9 +25,9 @@ p {
 
     width: 100%;
     border-bottom: 3px solid #5f2980;
-    box-shadow: 0px 2px 5px #999;
-    -webkit-box-shadow: 0px 2px 5px #999;
-    -moz-box-shadow: 2px 2px 5px #999;
+    box-shadow: 0px 2px 5px rgba(34, 34, 34, 0.42);
+    -webkit-box-shadow: 0px 2px 5px rgba(34, 34, 34, 0.42);
+    -moz-box-shadow: 2px 2px 5px rgba(34, 34, 34, 0.42);
     filter: shadow(color=#999999, direction=135, strength=2);
 }
 
@@ -71,6 +71,16 @@ p {
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
 
+}
+footer {
+    background-color: #2e2e2e;
+    height: 300px;
+    clear: both;
+    text-align: center;
+    padding: 20px;
+    margin: 0;
+    border-top: 2px solid black;
+    display: inline;
 }
 
 #head {
@@ -123,9 +133,9 @@ p {
 .titulo_post {
     text-align: center;
     font-size: 38px;
-    font-family: "titillium_weblight";
+    font-family: "titillium_weblight_italic";
     color: #5f2980;
-    width: 699px;
+    width: 100%;
 
 }
 
@@ -134,18 +144,23 @@ p {
     font-size: 18px;
     font-family: "titillium_weblight_italic";
     color: #3D1D53;
-
     margin: auto;
     overflow: hidden;
 }
-
+.fecha_post p{
+    margin: 0;
+    line-height: 1
+}
+.titulo_post p {
+    line-height: 1.1;
+}
 .imagen_titular_post {
 
-    width: 699px;
+    min-width: 500px;
 
-    height: 699px;
-    margin-top: 15px;
-    margin-bottom: 15px;
+    min-height: 500px;
+
+    margin: 15px auto 15px auto;
 }
 
 p {
@@ -155,7 +170,10 @@ p {
 .imagen_titular_post img {
     max-width: 699px;
     max-height: 699px;
+
+
 }
+
 
 .descripcion_post {
     text-align: justify;
@@ -173,7 +191,7 @@ p {
 }
 
 #container_boton_post {
-    width: 184px;
+    width: 100px;
     margin: 40px auto 40px auto;
 }
 
@@ -230,7 +248,25 @@ p {
     height: auto;
     width: auto/9; /* Bug de ie8 */
 }
-
+.imagen_titular_post img{
+    margin-bottom: 10px;
+    min-width: 100%;
+    height: auto;
+    width: auto/9;
+}
+#fotos_secundarias img{
+    margin-bottom: 10px;
+    min-width: 100%;
+    height: auto;
+    width: auto/9;
+}
+#bio{
+    padding: 15px;
+    font-family: "titillium_webthin";
+    font-size: 15px;
+    color: #5B5B5B;
+    text-align: center;
+}
 /*///////////////////////////////////////login/////////////////////////////////////////////*/
 .login_container input {
     margin-bottom: 15px;
@@ -326,7 +362,15 @@ form div {
 }
 
 /*/////////////////////////////////PUBLICAR////////////////////////////////*/
-
+.titulo_subir{
+    color: #3B1C50;
+    font-size: 20px;
+    font-family: "titillium_webregular";
+}
+#output, #output_2, #output_3, #output_4, #output_5, #output_6{
+    width: 184px;
+    height: 184px;
+}
 #contenerdor_principal_publicar {
     width: 100%;
     min-height: 500px;
@@ -362,6 +406,17 @@ form div {
 .container_flex {
     width: 100%;
     float: left;
+    padding: 10px 10px;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    box-shadow: 0px 2px 5px rgba(34, 34, 34, 0.42);
+    -webkit-box-shadow: 0px 2px 5px rgba(34, 34, 34, 0.42);
+    -moz-box-shadow: 2px 2px 5px rgba(34, 34, 34, 0.42);
+    filter: shadow(color=#999999, direction=135, strength=2);
+
+    margin: 7px 0 7px 0;
+
 }
 
 .container_item {
@@ -377,8 +432,11 @@ form div {
     font-family: "titillium_webthin";
     font-size: 16px;
     color: #565656;
+    float: left;
 }
-
+.imagen_container_item{
+    float: left;
+}
 .imagen_container_item img {
     cursor: pointer;
 }
@@ -389,7 +447,9 @@ form div {
 }
 
 .titulo_container_item p {
-    height: 35px;
+float:left;
+    width: 100%;
+
 }
 
 /*/////////////////////////////////////////POSTS/////////////////////////////////*/
@@ -410,19 +470,19 @@ form div {
 }
 
 .post_menu_categoria {
-    width: 150px;
+    width: 90px;
     float: left;
 }
 
 .post_menu_top_acciones {
     float: right;
-    margin-right: 21px;
+    margin-right: 25px;
 
 }
 
 input[type="file"] {
-    width: 150px;
-    font-size: 20px;
+
+    width: 145px;
     cursor: pointer;
     height: 50px;
 

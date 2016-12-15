@@ -1,6 +1,7 @@
 var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
+
 var dbPath  = "mongodb://rafael872:rafael872@ds155737.mlab.com:55737/blog2"
 mongoose.connect(dbPath);
 
