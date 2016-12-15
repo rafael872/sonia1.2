@@ -25,7 +25,8 @@ block contenido
 
                     div(class="menu_item")
                         div(class="post_menu_titulo")
-                            =posts.title
+                            a(href='/posts/' +posts._id)
+                                =posts.title
                         div(class="post_menu_fecha")
                             =posts.date
                         div(class="post_menu_categoria")

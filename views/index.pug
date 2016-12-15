@@ -1,5 +1,17 @@
 extends app/layout
 block contenido
+
+    #fb-root
+    script.
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s);
+            js.id = id;
+            js.src = "//connect.facebook.net/es_ES/sdk.js#xfbml=1&version=v2.8";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+
     script.
         function u(str) {
             return String(str).replace('&amp;', /&/g).replace('&lt;', /</g).replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -9,7 +21,9 @@ block contenido
 
     div(class="margen_principal")
 
+
         section(id="section")
+
 
             for posts in post
                 -var a
@@ -46,23 +60,62 @@ block contenido
                     p(id="capa")
 
                         !=posts.description
+                    div(id="fotos_secundarias")
+
+
+                        -if(fb && posts.foto2 != ""){fs_2='<img src="/images/' + posts.id +'_2.' + posts.foto2+'" style="max-width: 100%;height: auto; width: auto/9;">'}
+                        -if(fb && posts.foto3 != ""){fs_3='<img src="/images/' + posts.id +'_3.' + posts.foto3+'" style="max-width: 100%;height: auto; width: auto/9;">'}
+                        -if(fb && posts.foto4 != ""){fs_4='<img src="/images/' + posts.id +'_4.' + posts.foto4+'" style="max-width: 100%;height: auto; width: auto/9;">'}
+                        -if(fb && posts.foto5 != ""){fs_5='<img src="/images/' + posts.id +'_5.' + posts.foto5+'" style="max-width: 100%;height: auto; width: auto/9;">'}
+                        -if(fb && posts.foto6 != ""){fs_6='<img src="/images/' + posts.id +'_6.' + posts.foto6+'" style="max-width: 100%;height: auto; width: auto/9;">'}
+
+                        != fs_2
+
+                        != fs_3
+
+                        != fs_4
+
+                        != fs_5
+
+                        div
+                            != fs_6
+
+
+
+
+
 
                 div(class="botones_post")
                     div(id="container_boton_post")
-                        form
-                            input(type="submit" name="leer_mas" value="Leer Mas" class="boton1")
+
+                        a(href="posts/"+posts._id style="text-decoration:none")
+                            !=boton
+
+
+
+
+
+
+
+
+
+
+
+
+
                         div(id="container_boton_redes")
-                            a(href="#")
+
+                            a(href="http://twitter.com/home?status="+posts.title+" http://soniamujica.com/posts/"+posts._id target="popup" onclick="window.open('http://twitter.com/home?status="+posts.title+" http://soniamujica.com/posts/"+posts._id+"','name','width=600,height=400')")
                                 div(id="redes_1")
-                            a(href="http://www.facebook.com/share.php?u=http://google.com")
+                            a(href="http://www.facebook.com/share.php?u=http://soniamujica.com/posts/"+posts._id target="popup" onclick="window.open('http://www.facebook.com/share.php?u=http://soniamujica.com/posts/"+posts._id+"','name','width=600,height=400')")
                                 div(id="redes_2")
-                            a(href="#")
-                                div(id="redes_3")
-                            a(href="#")
-                                div(id="redes_4")
+
+                !=fb
+
                 hr
 
         include aside.pug
+    include footer.pug
 
 
-        footer
+

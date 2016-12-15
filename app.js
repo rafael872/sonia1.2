@@ -6,8 +6,9 @@ var cookieSession = require("cookie-session");
 var routes_app = require("./routes_app");
 var session_middleware = require("./middlewares/session");
 var multipart = require('connect-multiparty');
-
+var flash = require('connect-flash');
 var Post = require("./models/post");
+
 
 
 
@@ -16,7 +17,7 @@ var methodOverride = require("method-override");
 
 app.use(express.static('public'));
 app.use(express.static('assets'));
-
+app.use(flash());
 
 
 app.use(bodyParser.json());
@@ -35,8 +36,10 @@ app.set("view engine", "pug");
 
 app.get("/", function (req, res) {
     Post.find({},function (err, posts){
-        if(err){res.redirect("/app"); return;}
-        res.render("index",{post:posts})
+
+        if(err){res.redirect("/"); return;}
+        boton="<div class='boton1'><p style='text-align:center'>Leer mas</p></div>"
+        res.render("index",{post:posts,boton:boton})
 
 
     }).sort({date:'desc'})
@@ -103,7 +106,12 @@ app.get("/login", function (req, res) {
 app.get("/posts/:id",function (req,res) {
     Post.find({_id:req.params.id},function (err, posts){
         if(err){res.redirect("/app"); return;}
-        res.render("index",{post:posts})
+
+        var fb = '<div class="fb-comments" data-width="100%" data-href="soniamujica.com/posts/'+req.params.id+'" data-numposts="10"></div>';
+        var foto_1 = 'img(src="/images/" + posts.id + "_2."' + posts.foto2+' style="max-width: 100%;height: auto; width: auto/9;")'
+
+        boton=""
+        res.render("index",{post:posts,fb:fb,boton:boton})
 
 
     })
