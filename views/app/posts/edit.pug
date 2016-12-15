@@ -1,0 +1,117 @@
+extends ../layout
+block contenido
+
+    include ../nav
+    form(action="/app/posts/"+post._id+"?_method=PUT" method="POST" name="subir" id="subir" enctype='multipart/form-data')
+
+    div(class="margen_principal")
+
+        include ../nav_backend.pug
+        h1= err
+        div(class="nuevo_container_titulo")
+            p Editar
+        div(class="container_flex")
+
+            div(class="container_item")
+                div(class="titulo_container_item")
+                    p.titulo_subir Imagen Principal.
+                input(type="file" name="archivo" form="subir" id="upload" accept="image/*" onchange="loadFile(event)")
+
+                div(class="imagen_container_item")
+
+                    img(src="/images/"+post._id+"_1."+post.foto1 id="output")
+                    script.
+                        var loadFile = function (event) {
+                            var output = document.getElementById('output');
+                            output.src = URL.createObjectURL(event.target.files[0]);
+                        };
+                        var loadFile_2 = function (event) {
+                            var output = document.getElementById('output_2');
+                            output.src = URL.createObjectURL(event.target.files[0]);
+                        };
+                        var loadFile_3 = function (event) {
+                            var output = document.getElementById('output_3');
+                            output.src = URL.createObjectURL(event.target.files[0]);
+                        };
+                        var loadFile_4 = function (event) {
+                            var output = document.getElementById('output_4');
+                            output.src = URL.createObjectURL(event.target.files[0]);
+                        };
+                        var loadFile_5 = function (event) {
+                            var output = document.getElementById('output_5');
+                            output.src = URL.createObjectURL(event.target.files[0]);
+                        };
+                        var loadFile_6 = function (event) {
+                            var output = document.getElementById('output_6');
+                            output.src = URL.createObjectURL(event.target.files[0]);
+                        };
+        div(class="container_flex")
+            div(class="container_item")
+                div(class="titulo_container_item")
+                    p.titulo_subir Categoría
+                div(class="imagen_container_item")
+                    select(name="category" form="subir")
+                        option(value="1")
+                            | Fashion
+                        option(value="2")
+                            | Beauty
+                        option(value="3")
+                            | Travel
+                        option(value="4")
+                            | Food
+        div(class="container_flex")
+            p.titulo_subir Titulo
+            div(class="titulo_container_item")
+
+
+
+
+                input(type="text" required="true" id="title" value=post.title form="subir" name="title" style="max-width:100%;width:100%;")
+        div(class="container_flex")
+            p.titulo_subir Descripcion
+            div(class="titulo_container_item")
+
+
+
+                textarea(rows="4" required="true"  id="summernote" name="description" form="subir" cols="50" style="max-width:100%;width:100%;")
+                    =post.description
+
+        div(class="container_flex")
+            div(class="titulo_container_item")
+                p.titulo_subir Imagenes secundarias
+            div(class="container_item")
+
+                div(class="imagen_container_item")
+                    input(type="file" name="archivo_2" form="subir"  accept="image/*" onchange="loadFile_2(event)")
+                    img(src="/images/"+post._id+"_2."+post.foto2 id="output_2")
+            div(class="container_item")
+                div(class="titulo_container_item")
+
+                div(class="imagen_container_item")
+                    input(type="file" name="archivo_3" form="subir" accept="image/*" onchange="loadFile_3(event)")
+                    img(src="/images/"+post._id+"_3."+post.foto3 id="output_3")
+            div(class="container_item")
+                div(class="titulo_container_item")
+
+                div(class="imagen_container_item")
+                    input(type="file" name="archivo_4" form="subir"  accept="image/*" onchange="loadFile_4(event)")
+                    img(src="/images/"+post._id+"_4."+post.foto4 id="output_4")
+            div(class="container_item")
+                div(class="titulo_container_item")
+
+                div(class="imagen_container_item")
+                    input(type="file" name="archivo_5" form="subir" accept="image/*" onchange="loadFile_5(event)")
+                    img(src="/images/"+post._id+"_5."+post.foto5 id="output_5")
+            div(class="container_item")
+                div(class="titulo_container_item")
+
+                div(class="imagen_container_item")
+                    input(type="file" name="archivo_6" form="subir"  accept="image/*" onchange="loadFile_6(event)")
+                    img(src="/images/"+post._id+"_6."+post.foto6 id="output_6")
+
+            input(type="submit" value="Subir" form="subir")
+
+        script.
+            $(document).ready(function () {
+                $('#summernote').summernote();
+            });
